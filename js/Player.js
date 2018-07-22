@@ -1,10 +1,10 @@
 class Player {
   constructor() {
-    this.x = 50;
+    this.x = 100;
     this.y = 50;
     this.vspeed = 0;
     this.hspeed = 0;
-    this.speed = 10;
+    this.speed = PhObj.cellWidth / 32 * 10
     this.jspeed = this.speed * 2;
     this.size = PhObj.cellWidth;
     this.left = false;
@@ -14,11 +14,10 @@ class Player {
   }
 
   manageCollisions() {
-    console.log(PhObj.brickCollisions(this.x, this.y, this.size, '#'));
     //Springs
     const springCollisions = PhObj.brickCollisions(this.x, this.y, this.size, '=');
     if(Object.keys(springCollisions).some(a => springCollisions[a])) {
-      this.vspeed -= this.jspeed;
+      this.vspeed = - this.vspeed;
     }
 
     //Spikes

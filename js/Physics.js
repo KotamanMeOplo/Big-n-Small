@@ -1,7 +1,7 @@
 class Physics {
   constructor() {
-    this.gravity = .7;
-    this.cellWidth = 32;
+    this.cellWidth = Math.floor(Math.min(canvas.width / 48, canvas.height / 23));
+    this.gravity = this.cellWidth / 32 * .7;
   }
 
   round(a){

@@ -4,8 +4,14 @@ class Game {
     NewPlayer.draw(ctx);
     levelCreator.draw(ctx);
     levels.forEach(a => a.draw(ctx));
+    pause.draw(ctx);
 
-    requestAnimationFrame(newGame.draw);
+    if(!pause.isClicked) {
+      requestAnimationFrame(newGame.draw);
+    } else {
+      pause.drawPausedScreen(ctx);
+      pause.handlePaused();
+    }
   };
 }
 
