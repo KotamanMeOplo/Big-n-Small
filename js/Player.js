@@ -17,12 +17,12 @@ class Player {
     //Springs
     const springCollisions = PhObj.brickCollisions(this.x, this.y, this.size, '=');
     if(Object.keys(springCollisions).some(a => springCollisions[a])) {
-      this.vspeed = - this.vspeed;
+      this.vspeed = - 1.1 * this.jspeed;
     }
 
     //Spikes
     const spikeCollisions = PhObj.brickCollisions(this.x, this.y, this.size, '.');
-    if(spikeCollisions.down) {
+    if(Object.keys(spikeCollisions).some(a => spikeCollisions[a])) {
       NewPlayer = new Player();
     }
 
@@ -59,6 +59,39 @@ class Player {
     }
   }
 
+  moveWhenGrow() {
+    const getNumOfCollisions = () => {
+      const collisions = PhObj.brickCollisions(this.x + 1, this.y + 1, this.size - 2, '#');
+      const numOfCollisions = Object.keys(collisions).reduce((pr, cur) => collisions[cur] ? pr + 1 : pr, 0);
+
+      return numOfCollisions;
+    }
+    const minNumOfCollisionsIfStuck = 3;
+    console.log(getNumOfCollisions());
+
+    if(getNumOfCollisions() >= 0) {
+      const initX = this.x;
+      const initY = this.y;
+      const xDirToMove = [-1, 1, 0, 0, -1, -1, 1, 1];
+      const yDirToMove = [0, 0, -1, 1, -1, 1, -1, 1];
+      const distToMove = PhObj.cellWidth / 2;
+      let i = 0;
+
+      while(i < xDirToMove.length && getNumOfCollisions() !== 0) {
+        this.x = initX + xDirToMove[i] * distToMove;
+        this.y = initY + yDirToMove[i] * distToMove;
+        i ++;
+        console.log(getNumOfCollisions(), i);
+      }
+
+      if(getNumOfCollisions() !== 0) {
+        this.x = initX;
+        this.y = initY;
+        this.changeSize();
+      }
+    }
+  }
+
   changeSize() {
     if(this.size === PhObj.cellWidth){
       this.size *= 2;
@@ -68,7 +101,8 @@ class Player {
       this.jspeed /= 2;
       this.hspeed /= 2;
       this.vspeed /= 2;
-    }else{
+      this.moveWhenGrow();
+    } else {
       this.size /= 2;
       this.x += PhObj.cellWidth / 2;
       this.y += PhObj.cellWidth / 2;

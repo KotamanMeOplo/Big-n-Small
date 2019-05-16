@@ -13,7 +13,7 @@ class Physics {
   }
 
   brickCollisions(x, y, size, brick) {
-    const hasCollision = (x, y, brick) => levels[0].layout[this.coordinateToIndex(y)][this.coordinateToIndex(x)] === brick;
+    const hasCollision = (x, y, brick) => currentLevel.layout[this.coordinateToIndex(y)][this.coordinateToIndex(x)] === brick;
     const collisions = {
       right: false,
       left: false,

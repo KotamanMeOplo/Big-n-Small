@@ -1,4 +1,5 @@
 const levels = [];
+let currentLevel;
 
 class LevelCreator {
   constructor() {
@@ -41,7 +42,8 @@ class LevelCreator {
 
     document.addEventListener('keydown', e => this.brush = e.key);
 
-    return levels[levels.length - 1];
+    levels[levels.length - 1].centerLevel();
+    currentLevel = levels[levels.length - 1];
   }
 }
 
@@ -77,7 +79,7 @@ class Level {
     })
   }
 
-  draw(context) {
+  draw(ctx) {
     for(let i = 0; i < this.layout.length; i ++) {
       for(let j = 0; j < this.layout[i].length; j ++) {
         switch(this.layout[i][j]) {
@@ -97,6 +99,8 @@ class Level {
 }
 
 const levelCreator = new LevelCreator();
-levelCreator.createLevel();
+levels.push(new Level());
 levels[0].layout = level1;
 levels[0].centerLevel();
+
+levelCreator.createLevel();

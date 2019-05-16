@@ -3,7 +3,7 @@ class Game {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     NewPlayer.draw(ctx);
     levelCreator.draw(ctx);
-    levels.forEach(a => a.draw(ctx));
+    currentLevel.draw(ctx);
     pause.draw(ctx);
 
     if(!pause.isClicked) {
