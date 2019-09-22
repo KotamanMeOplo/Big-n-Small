@@ -100,7 +100,7 @@ class Level {
 
 const levelCreator = new LevelCreator();
 levels.push(new Level());
-levels[0].layout = level1;
+levels[0].layout = level2;
 levels[0].centerLevel();
 
-levelCreator.createLevel();
+currentLevel = levels[0];

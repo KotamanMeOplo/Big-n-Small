@@ -1,7 +1,7 @@
 class Player {
   constructor() {
     this.x = 100;
-    this.y = 50;
+    this.y = 640;
     this.vspeed = 0;
     this.hspeed = 0;
     this.speed = PhObj.cellWidth / 32 * 10
